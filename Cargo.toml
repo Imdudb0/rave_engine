@@ -1,0 +1,33 @@
+[package]
+name = "rave_engine"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rave_engine"
+crate-type = ["cdylib", "rlib"] # Add "rlib" for the desktop binary to link against
+
+[dependencies]
+log = "0.4" # <-- ADD THIS LINE
+clap = { version = "4", features = ["derive"] }
+bytemuck = { version = "1.23.1", features = ["derive"] }
+env_logger = "0.11.8"
+glam = "0.30.5"
+pollster = "0.4.0"
+wgpu = "26.0.1"
+winit = { version = "0.30.11", features = ["android-native-activity"] }
+android_logger = "0.13"
+
+[package.metadata.android]
+package = "com.raveengine.app"
+build_targets = ["aarch64-linux-android"]
+
+[package.metadata.android.application]
+label = "R.A.V.E. Engine"
+theme = "@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
+target_sdk_version = 34
+min_sdk_version = 23
+compile_sdk_version = 33
+
+[[package.metadata.android.uses_permission]]
+name = "android.permission.WAKE_LOCK"
