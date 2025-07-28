@@ -37,7 +37,7 @@ jobs:
           crate: cargo-apk
 
       - name: Build release APK
-        run: cargo apk build --release
+        run: cargo apk build --debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
