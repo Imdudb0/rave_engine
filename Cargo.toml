@@ -31,3 +31,7 @@ compile_sdk_version = 33
 
 [[package.metadata.android.uses_permission]]
 name = "android.permission.WAKE_LOCK"
+
+[[bin]]
+name = "rave_engine_desktop"
+path = "src/main.rs"
