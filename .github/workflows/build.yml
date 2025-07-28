@@ -1,46 +1,45 @@
 name: Build Android APK
 
 on:
-  # This workflow runs automatically on every push to the "main" branch
   push:
     branches: [ "main" ]
-  # This also allows you to run it manually from the "Actions" tab on GitHub
   workflow_dispatch:
 
 jobs:
   build-apk:
-    # The build will run on a fresh, virtual Ubuntu machine
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Downloads your code into the virtual machine
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Installs Rust and adds the Android compile target
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: "aarch64-linux-android"
 
-      # 3. Installs Java, which is required by cargo-apk
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # 4. Installs the cargo-apk build tool
+      # --- NEW STEP ADDED HERE ---
+      # Installs the required Android SDK Platform and Build Tools.
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3.2.1
+        with:
+          # We install platform 34, a modern and stable target.
+          packages: 'platforms;android-34 build-tools;34.0.0'
+
       - name: Install cargo-apk
         uses: baptiste0928/cargo-install@v3
         with:
           crate: cargo-apk
 
-      # 5. Runs the actual build command
       - name: Build release APK
         run: cargo apk build --release
 
-      # 6. Saves the compiled .apk file so you can download it later
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
