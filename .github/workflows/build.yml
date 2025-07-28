@@ -34,9 +34,11 @@ jobs:
         with:
           crate: cargo-apk
 
-      # --- THIS IS THE CORRECTED STEP ---
+      # --- FINAL FIX: REMOVE THE CONFLICTING FILE ---
+      - name: Remove Desktop main.rs to Avoid Conflict
+        run: rm src/main.rs
+
       - name: Build debug APK
-        # To create a debug build, simply run the command without any flags.
         run: cargo apk build
 
       - name: Upload APK
