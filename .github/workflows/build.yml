@@ -38,8 +38,11 @@ jobs:
       - name: Remove Desktop main.rs to Avoid Conflict
         run: rm src/main.rs
 
+      #- name: Build debug APK
+      #  run: cargo apk build
+
       - name: Build debug APK
-        run: cargo apk build
+        run: cargo apk build --lib
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
