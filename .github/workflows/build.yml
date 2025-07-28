@@ -24,12 +24,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # --- NEW STEP ADDED HERE ---
-      # Installs the required Android SDK Platform and Build Tools.
+      # This is the critical step that is likely missing on GitHub
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3.2.1
         with:
-          # We install platform 34, a modern and stable target.
           packages: 'platforms;android-34 build-tools;34.0.0'
 
       - name: Install cargo-apk
