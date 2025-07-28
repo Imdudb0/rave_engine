@@ -24,10 +24,12 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      # --- THIS IS THE CORRECTED STEP ---
+      # We are now installing the EXACT platform version the error asks for.
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3.2.1
         with:
-          packages: 'platforms;android-34 build-tools;34.0.0'
+          packages: 'platforms;android-30 build-tools;30.0.3'
 
       - name: Install cargo-apk
         uses: baptiste0928/cargo-install@v3
@@ -40,6 +42,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: rave_engine-apk
+          name: rave-engine-apk
           path: target/release/apk/*.apk
 
