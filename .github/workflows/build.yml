@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # --- NEW DEBUG STEP ---
+      # This will print the content of the workflow file to the log.
+      - name: Display Workflow File Content
+        run: cat .github/workflows/build.yml
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -24,7 +29,6 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # This is the critical step that is likely missing on GitHub
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3.2.1
         with:
